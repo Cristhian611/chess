@@ -1,5 +1,98 @@
+/* --------- variables --------- */
+:root {
+    /* Tamaño del tablero */
+    --board-size: 600px;
+
+    /* Número de filas y columnas */
+    --num-rows: 8;
+    --num-columns: 8;
+
+    /* Tamaño de cada celda */
+    --cell-size: calc(var(--board-size) / var(--num-rows));
+
+    /* Color celdas */
+    --cell-light-color: #e5cece;
+    --cell-dark-color: #596a99;
+
+
+    /* Color piezas */
+    --piece-light-color: #ffffff;
+    --piece-dark-color: #000000;
+}
+
+/* ---------------------------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    /* TODO convertir en variable */
+    background-color: #1e1e1e;
+    /* background: linear-gradient(to right, white 50%, black 50%); */
+
+    color: whitesmoke;
+    font-family: sans-serif, Arial, Helvetica, sans-serif;
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.board {
+    display: grid;
+
+    /* Número de filas con el tamaño de las celdas */
+    grid-template-rows: repeat(var(--num-rows), var(--cell-size));
+
+    /* Número de columnas con el tamaño de las celdas */
+    grid-template-columns: repeat(var(--num-columns), var(--cell-size));
+
+    /* tamaño del tablero */
+    width: var(--board-size);
+    height: var(--board-size);
+    padding: 10px;
+    /* TODO convertir en variable color */
+    background-color: rgb(7, 55, 102);
+    cursor: pointer;
+
+    font-size: 3rem;
+    text-align: center;
+}
+
+.border-container {
+    border-radius: 20px;
+    overflow: hidden;
+    /* TODO convertir en variable colores*/
+    box-shadow: 0px 10px 200px 0px #2b29a3;
+    border: 15px solid rgb(4, 9, 66);
+}
+
+/* celdas */
+.cell-light-color {
+    background-color: var(--cell-light-color);
+}
+
+.cell-dark-color {
+    background-color: var(--cell-dark-color);
+}
+
+
+/* piezas */
+
+.piece-light-color {
+    color: var(--piece-light-color);
+    -webkit-text-stroke: 1px #fff;
+}
+
+.piece-dark-color {
+    color: var(--piece-dark-color);
+    -webkit-text-stroke: 1px #000;
+
 }
