@@ -76,7 +76,7 @@ function renderBoard() {
     for (let row = 0; row < ROWS; row++) {
 
         for (let column = 0; column < COLUMNS; column++) {
-            const $cell = document.createElement("div");
+            const cell = document.createElement("div");
 
             // asignar un ID a cada celda (A1,B1,C1...A8,B8,C8...)
             // Convertir el número de columna a una letra
@@ -86,29 +86,50 @@ function renderBoard() {
             const cellId = columnLetter + (8 - row)
 
             // asignar el ID a la celda
-            $cell.setAttribute("id", cellId);
+            cell.setAttribute("id", cellId);
 
             // asignar color a cada celda usando clases css
-            $cell.classList.add((row + column) % 2 ? "cell-dark-color" : "cell-light-color");
+            cell.classList.add((row + column) % 2 ? "cell-dark-color" : "cell-light-color");
 
             // asignar el color de las piezas
             if (boardMatrix[row][column]) {
-                $cell.classList.add(boardMatrix[row][column].color === "light" ? "piece-light-color" : "piece-dark-color");
-                $cell.textContent = boardMatrix[row][column].type;
+                cell.classList.add(boardMatrix[row][column].color === "light" ? "piece-light-color" : "piece-dark-color");
+                cell.textContent = boardMatrix[row][column].type;
             }
 
-            $board.appendChild($cell);
+            //Asignamos un evento a cada posicion del tablero
+            cell.addEventListener('click', function(event){
+                let elemIndex = {
+                    r: row,
+                    c:column
+                }
+                movePiece(elemIndex);
+            });
+
+            $board.appendChild(cell);
         }
     }
 }
 
 
 // crear logica del tablero y renderizarlo
-const boardMatrix = createBoardMatrix(ROWS, COLUMNS);
+var boardMatrix = createBoardMatrix(ROWS, COLUMNS);
 initializeBoardMatrix(boardMatrix);
 renderBoard(boardMatrix);
 
+//TODO intercambiar elementos de las dos posiciones.
+function movePiece(elemIndex){
 
+    let newPosition = {
+        r: (elemIndex.r+1),
+        c: elemIndex.c
+    }
+
+    let currentPiece = boardMatrix[elemIndex.r].splice(elemIndex.c,1)[0];
+
+    boardMatrix[newPosition.r].splice(newPosition.c,0,currentPiece);
+    renderBoard(boardMatrix);
+}
 
 
 
